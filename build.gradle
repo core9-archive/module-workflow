@@ -1,0 +1,29 @@
+// Core9 Framework: module-database
+// Build with: ./gradlew clean test build
+// Publish with  ./gradlew clean test build publish publishBintray
+
+apply from: 'http://www.core9.io/buildfiles/gradle/source.gradle'
+apply from: 'http://www.core9.io/buildfiles/gradle/publish.gradle'
+
+buildscript {
+	apply from: 'http://www.core9.io/buildfiles/gradle/publish-build.gradle'
+}
+
+/**
+ * @TODO Somehow cannot be moved to publish.gradle
+ */
+task publishBintray (type: org._10ne.gradle.rest.RestTask, dependsOn: bintrayUpload) {
+    httpMethod = 'post'
+    uri = 'https://bintray.com/api/v1/content/core9/core9/' + project.name + '/' + project.version + '/publish'
+    username = System.env.BINTRAY_USER
+    password = System.env.BINTRAY_KEY
+}
+
+dependencies {
+	implCompile 'org.slf4j:slf4j-api:1.7.2'
+	implCompile 'org.slf4j:slf4j-log4j12:1.7.2'
+	implCompile 'com.google.guava:guava:15.0'
+	
+	implCompile 'io.core9:module-cache-api:+'
+	implCompile 'io.core9:module-session-manager-api:+'
+}
