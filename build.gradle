@@ -25,5 +25,4 @@ dependencies {
 	implCompile 'com.google.guava:guava:15.0'
 	
 	implCompile 'io.core9:module-cache-api:+'
-	implCompile 'io.core9:module-session-manager-api:+'
 }
